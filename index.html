@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单张图片展示</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);  /* 渐变背景 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+            border: 10px solid #ccc; /* 外边框 */
+            box-sizing: border-box;
+            opacity: 0;
+            animation: fadeIn 2s forwards; /* 页面加载时淡入效果 */
+        }
+
+        /* 页面淡入动画 */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .image-container {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 5px solid #ddd; /* 图片容器的边框 */
+            transition: transform 0.3s ease; /* 图片容器悬停时的过渡效果 */
+        }
+
+        .image-container:hover {
+            transform: scale(1.05); /* 鼠标悬停时，图片稍微放大 */
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 5px solid #ddd;
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        /* 雪花粒子效果 */
+        .snowflake {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh); /* 雪花从上到下 */
+            }
+        }
+
+        /* 雪花粒子的闪烁效果 */
+        .snowflake:nth-child(odd) {
+            animation-duration: 4s;
+        }
+        .snowflake:nth-child(even) {
+            animation-duration: 6s;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="img/二维码.jpg" alt="展示图片">
+        <div class="image-caption">扫描二维码联系我</div>
+    </div>
+
+    <!-- 雪花粒子效果 -->
+    <script>
+        // 创建雪花粒子效果
+        const snowflakeCount = 100;  // 雪花数量
+
+        // 随机生成雪花
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            document.body.appendChild(snowflake);
+
+            const size = Math.random() * 5 + 2; // 雪花大小
+            const left = Math.random() * window.innerWidth; // 雪花初始水平位置
+            const top = -Math.random() * 100; // 雪花初始从页面最上方开始
+            const animationDuration = Math.random() * 3 + 2; // 雪花下落速度
+
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${left}px`;
+            snowflake.style.top = `${top}px`;
+            snowflake.style.animationDuration = `${animationDuration}s`;
+            snowflake.style.animationDelay = `${Math.random() * 5}s`; // 随机延迟
+
+            // 动态添加雪花到页面
+        }
+
+        // 初始化雪花效果
+        function initSnow() {
+            for (let i = 0; i < snowflakeCount; i++) {
+                createSnowflake();
+            }
+        }
+
+        // 启动雪花效果
+        window.onload = initSnow;
+    </script>
+</body>
+</html>
